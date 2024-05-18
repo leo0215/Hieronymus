@@ -6,7 +6,8 @@ public static class TableEncryptionService
 {
     public static byte[] CreateKey(string name, int size = 8)
     {
-        ulong seed = XXHashService.CalculateHash(name);
+        byte[] nameBytes = Encoding.UTF8.GetBytes(name);
+        ulong seed = XXHashService.CalculateHash(nameBytes);
         MersenneTwister mt = new MersenneTwister((long)seed);
         return mt.NextBytes(size);
     }
